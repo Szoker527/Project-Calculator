@@ -33,13 +33,28 @@ body {
         margin: 20px 35px;
         height: 60px;
         display: flex;
-        align-items: center;
+        flex-direction: column;
       }
 
-        .text-show {
+        .text-show,
+        .operators,
+        .text-save {
           color: white;
           font-weight: bold;
           font-size: 1.5rem;
+        }
+
+        .text-bottom,
+        .text-save {
+          flex: 1;
+        }
+
+        .text-save {
+          align-self: flex-end;
+        }
+
+        .text-bottom {
+          display: flex;
         }
 
     .buttons {
