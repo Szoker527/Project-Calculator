@@ -5,24 +5,29 @@ const btnAdd = document.querySelector(".add");
 const btnSub = document.querySelector(".subtract");
 const btnEqual = document.querySelector(".equal");
 const operatorShow = document.querySelector(".operators");
-let arrayNum = [];
-let lastAction =  0;
+let lastAction =  true;
+let isEqual = false;
 const numbers = {
 };
 
 btnNum.forEach(num => num.addEventListener("click", function() {
-    if (lastAction === "string") {
+    if (numbers.operator == "=") {
+        textShow.textContent += this.value;
+        return
+    }
+    if (lastAction === false) {
         textShow.textContent  = "";
-        lastAction = 1;
+        lastAction = true;
+    }
+    else if(isEqual === true) {
+        textShow.textContent  = "";
     }
     textShow.textContent += this.value;
-    console.log(typeof lastAction);
 }))
 
 btnAdd.addEventListener("click", operatorsWork);
 btnSub.addEventListener("click", operatorsWork);
-
-btnEqual.addEventListener("click", equals)
+btnEqual.addEventListener("click", equals);
 
 function add(a,b) {
     return a + b;
@@ -44,44 +49,53 @@ function operate(a, b, operator) {
     if (operator == "+") {
         numbers.a = add(+a,+b);
         delete numbers.b;
-        lastAction = "string";
+        lastAction = false;
+        textShow.textContent = numbers.a;
+        return numbers.a;
+    }
+    if (operator == "-") {
+        numbers.a = subtract(+a, +b);
+        delete numbers.b;
+        lastAction = false;
+        textShow.textContent = numbers.a;
         return numbers.a;
     }
 }
 
 function operatorsWork(e) {
-    if (lastAction === "string"){
+    if (lastAction === false && !(numbers.operator == "=")){
         numbers.operator = e.target.value;
         textTop.textContent = numbers.a + " " + numbers.operator;
         return
     }
-    lastAction = "string";
-    numbers.operator = e.target.value;
+    lastAction = false;
     console.log(numbers)
     if(!numbers.a) {
+        numbers.operator = e.target.value;
         numbers.a = +textShow.textContent;
         textTop.textContent = numbers.a + " " + numbers.operator;
     }
     else if(!numbers.b) {
         numbers.b = +textShow.textContent;
         operate(numbers.a, numbers.b, numbers.operator);
+        numbers.operator = e.target.value;
         textTop.textContent = numbers.a + " " + numbers.operator;
-    }
-    else {
-        return;
     }
 
 }
 
 
-function equals() {
+function equals(e) {
+    if (numbers.operator == "=") {
+        return
+    }
     if(!numbers.b) {
         numbers.b = +textShow.textContent;
         textTop.textContent = numbers.a + " " + numbers.operator + " " +numbers.b + " =";
+        lastAction = false;
     }
-
-    if(numbers.operator == "+") {
-        numbers.c = add(numbers.a,numbers.b);
-        textShow.textContent = numbers.c;
-    }
+        operate(numbers.a, numbers.b, numbers.operator);
+        delete numbers.a;
+        numbers.operator = e.target.value;
+        lastAction = false;
 }
