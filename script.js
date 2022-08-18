@@ -3,6 +3,8 @@ const textShow = document.querySelector(".text-show")
 const textTop = document.querySelector(".text-save")
 const btnAdd = document.querySelector(".add");
 const btnSub = document.querySelector(".subtract");
+const btnMul = document.querySelector(".multiply");
+const btnDiv = document.querySelector(".divide");
 const btnEqual = document.querySelector(".equal");
 const operatorShow = document.querySelector(".operators");
 let lastAction =  true;
@@ -27,6 +29,8 @@ btnNum.forEach(num => num.addEventListener("click", function() {
 
 btnAdd.addEventListener("click", operatorsWork);
 btnSub.addEventListener("click", operatorsWork);
+btnMul.addEventListener("click", operatorsWork);
+btnDiv.addEventListener("click", operatorsWork);
 btnEqual.addEventListener("click", equals);
 
 function add(a,b) {
@@ -46,6 +50,7 @@ function divide(a, b) {
 }
 
 function operate(a, b, operator) {
+    console.log(operator)
     if (operator == "+") {
         numbers.a = add(+a,+b);
         delete numbers.b;
@@ -55,6 +60,20 @@ function operate(a, b, operator) {
     }
     if (operator == "-") {
         numbers.a = subtract(+a, +b);
+        delete numbers.b;
+        lastAction = false;
+        textShow.textContent = numbers.a;
+        return numbers.a;
+    }
+    if (operator == "*") {
+        numbers.a = multiply(+a, +b);
+        delete numbers.b;
+        lastAction = false;
+        textShow.textContent = numbers.a;
+        return numbers.a;
+    }
+    if (operator == "/") {
+        numbers.a = divide(+a, +b);
         delete numbers.b;
         lastAction = false;
         textShow.textContent = numbers.a;
@@ -70,6 +89,7 @@ function operatorsWork(e) {
     }
     lastAction = false;
     console.log(numbers)
+    
     if(!numbers.a) {
         numbers.operator = e.target.value;
         numbers.a = +textShow.textContent;
