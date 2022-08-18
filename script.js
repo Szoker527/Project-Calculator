@@ -6,6 +6,7 @@ const btnSub = document.querySelector(".subtract");
 const btnMul = document.querySelector(".multiply");
 const btnDiv = document.querySelector(".divide");
 const btnEqual = document.querySelector(".equal");
+const btnClear = document.querySelector(".clear");
 const operatorShow = document.querySelector(".operators");
 let lastAction =  true;
 let isEqual = false;
@@ -16,6 +17,10 @@ btnNum.forEach(num => num.addEventListener("click", function() {
     if (numbers.operator == "=") {
         textShow.textContent += this.value;
         return
+    }
+    if (!numbers.operator && textShow.textContent == 0) {
+        textShow.textContent  = "";
+        lastAction = true;
     }
     if (lastAction === false) {
         textShow.textContent  = "";
@@ -32,6 +37,15 @@ btnSub.addEventListener("click", operatorsWork);
 btnMul.addEventListener("click", operatorsWork);
 btnDiv.addEventListener("click", operatorsWork);
 btnEqual.addEventListener("click", equals);
+
+btnClear.addEventListener("click", function() {
+    delete numbers.a 
+    delete numbers.b
+    delete numbers.operator
+    textShow.textContent = 0;
+    textTop.textContent = "";
+})
+
 
 function add(a,b) {
     return a + b;
