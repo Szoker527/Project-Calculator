@@ -13,10 +13,13 @@ body {
   }
 
   .container {
-    width: 500px;
+    width: 400px;
     height: 500px;
     display: flex;
     flex-direction: column;
+    border-radius: 10px;
+    border: 2px solid black;
+    border-radius: 10px;
   }
 
     .display {
@@ -25,15 +28,18 @@ body {
       justify-content: center;
       align-items: center;
       background-color: antiquewhite;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
     }
 
       .number-show {
         background-color: brown;
         flex: 1;
         margin: 20px 35px;
-        height: 60px;
+        height: 90px;
         display: flex;
         flex-direction: column;
+        border-radius: 10px;
       }
 
         .text-show,
@@ -41,27 +47,32 @@ body {
         .text-save {
           color: white;
           font-weight: bold;
-          font-size: 1.5rem;
+          font-size: 3rem;
         }
 
         .text-bottom,
         .text-save {
           flex: 1;
+          margin-right: 10px;
         }
 
         .text-save {
           align-self: flex-end;
+          font-size: 2rem;
         }
 
         .text-bottom {
           display: flex;
+          align-self: flex-end;
         }
 
     .buttons {
       flex: 5;
       display: flex;
       flex-direction: column;
-      background-color: blanchedalmond;
+      background-color: #888888;
+      border-bottom-left-radius: 9px;
+      border-bottom-right-radius: 9px;
     }
 
       .rows {
@@ -76,4 +87,5 @@ body {
           height: 80px;
           font-size: 1.5rem;
           font-weight: bold;
+          border-radius: 8px;
         }
