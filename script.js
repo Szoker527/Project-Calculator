@@ -120,7 +120,7 @@ function operatorsWork(e) {
 
 
 function equals(e) {
-    if (numbers.operator == "=") {
+    if (numbers.operator == "=" || lastAction === false) {
         return
     }
     if(!numbers.b) {
