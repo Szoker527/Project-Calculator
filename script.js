@@ -10,8 +10,8 @@ const btnClear = document.querySelector(".clear");
 const operatorShow = document.querySelector(".operators");
 let lastAction =  true;
 let isEqual = false;
-const numbers = {
-};
+const numbers = {};
+textShow.textContent = 0;
 
 btnNum.forEach(num => num.addEventListener("click", function() {
     if (numbers.operator == "=") {
