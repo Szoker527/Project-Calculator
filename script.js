@@ -90,7 +90,6 @@ function operate(a, b, operator) {
     if (b == 0) {
         return alert("ERROR!")
     }
-    console.log(operator)
     if (operator == "+") {
         numbers.a = add(+a,+b);
         delete numbers.b;
@@ -128,7 +127,6 @@ function operatorsWork(e) {
         return
     }
     lastAction = false;
-    console.log(numbers)
     
     if(!numbers.a) {
         numbers.operator = e.target.value;
