@@ -34,6 +34,9 @@ btnNum.forEach(num => num.addEventListener("click", function() {
 
 window.addEventListener("keydown", function(e) {
     const btnInput =  document.querySelector(`input[data-key="${e.key}"]`)
+    if (!btnInput) {
+        return
+    }
     if (numbers.operator == "=") {
         textShow.textContent += btnInput.value;
         return
