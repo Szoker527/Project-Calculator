@@ -32,6 +32,26 @@ btnNum.forEach(num => num.addEventListener("click", function() {
     textShow.textContent += this.value;
 }))
 
+window.addEventListener("keydown", function(e) {
+    const btnInput =  document.querySelector(`input[data-key="${e.key}"]`)
+    if (numbers.operator == "=") {
+        textShow.textContent += btnInput.value;
+        return
+    }
+    if (!numbers.operator && textShow.textContent == 0) {
+        textShow.textContent  = "";
+        lastAction = true;
+    }
+    if (lastAction === false) {
+        textShow.textContent  = "";
+        lastAction = true;
+    }
+    else if(isEqual === true) {
+        textShow.textContent  = "";
+    }
+    textShow.textContent += btnInput.value;
+})
+
 btnAdd.addEventListener("click", operatorsWork);
 btnSub.addEventListener("click", operatorsWork);
 btnMul.addEventListener("click", operatorsWork);
