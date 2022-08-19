@@ -87,6 +87,9 @@ function divide(a, b) {
 }
 
 function operate(a, b, operator) {
+    if (b == 0) {
+        return alert("ERROR!")
+    }
     console.log(operator)
     if (operator == "+") {
         numbers.a = add(+a,+b);
