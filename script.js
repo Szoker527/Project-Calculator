@@ -90,34 +90,35 @@ function operate(a, b, operator) {
     if (b == 0) {
         return alert("ERROR!")
     }
-    if (operator == "+") {
+    if (operator == '+') {
         numbers.a = add(+a,+b);
         delete numbers.b;
         lastAction = false;
         textShow.textContent = numbers.a;
         return numbers.a;
     }
-    if (operator == "-") {
+    if (operator == '-') {
         numbers.a = subtract(+a, +b);
         delete numbers.b;
         lastAction = false;
         textShow.textContent = numbers.a;
         return numbers.a;
     }
-    if (operator == "*") {
+    if (operator == '×') {
         numbers.a = multiply(+a, +b);
         delete numbers.b;
         lastAction = false;
         textShow.textContent = numbers.a;
         return numbers.a;
     }
-    if (operator == "/") {
+    if (operator == '÷') {
         numbers.a = divide(+a, +b);
         delete numbers.b;
         lastAction = false;
         textShow.textContent = numbers.a;
         return numbers.a;
     }
+    
 }
 
 function operatorsWork(e) {
@@ -148,7 +149,7 @@ function equals(e) {
     }
     if(!numbers.b) {
         numbers.b = +textShow.textContent;
-        textTop.textContent = numbers.a + " " + numbers.operator + " " +numbers.b + " =";
+        textTop.textContent = numbers.a + " " + numbers.operator + " " + numbers.b + " =";
         lastAction = false;
     }
         operate(numbers.a, numbers.b, numbers.operator);
