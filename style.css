@@ -14,11 +14,11 @@ body {
 
   .container {
     width: 400px;
-    height: 500px;
+    height: 620px;
     display: flex;
     flex-direction: column;
     border-radius: 5px;
-    box-shadow: 3px 3px 2px 0px;
+    box-shadow: 3px 3px 0px 0px;
     border: 2px solid black;
   }
 
@@ -38,7 +38,7 @@ body {
         background-color: #a9e5a9;
         flex: 1;
         margin: 20px 35px;
-        height: 90px;
+        height: 110px;
         display: flex;
         flex-direction: column;
         border-radius: 5px;
@@ -80,14 +80,23 @@ body {
       border-bottom-right-radius: 1px;
       padding: 15px 0px;
       box-shadow: inset -7px -5px;
+      gap: 10px;
     }
 
       .rows {
-        flex: 1;
         display: flex;
         justify-content: space-evenly;
-        align-items: center;
       }
+
+      .top {
+        margin: 0 15px;
+        gap: 14px;
+      }
+
+        .top input {
+          flex: 1;
+          font-size: 1.5rem;
+        }
 
         input {
           width: 80px;
