@@ -55,7 +55,6 @@ window.addEventListener("keydown", function(e) {
         lastAction = false;
     }
     currentShow.textContent += btnInput.value;
-    console.log(typeof currentShow.textContent)
 })
 
 btnDot.addEventListener("click", () => {
@@ -67,11 +66,12 @@ btnDot.addEventListener("click", () => {
 })
 
 btnDelete.addEventListener("click", () => {
-    if (currentShow.textContent.slice(0, 1) === "0") {
+    if (currentShow.textContent.slice(0, 1) === "0" && currentShow.textContent.length < 1) {
         return
     }
-     currentShow.textContent = currentShow.textContent.slice(0, -1); 
-     console.log(currentShow.textContent)
+    lastAction = false;
+    currentShow.textContent = currentShow.textContent.slice(0, -1); 
+    console.log(currentShow.textContent)
 })
 
 btnAdd.addEventListener("click", operatorsWork);
@@ -108,34 +108,29 @@ function divide(a, b) {
 function operate(a, b, operator) {
     if (b == 0 && operator == '÷') {
         delete numbers.b;
-        currentShow.textContent = numbers.a;
+        currentShow.textContent = maxLength(numbers.a);
         return alert("ERROR!")
     }
     if (operator == '+') {
-        numbers.a = add(+a,+b);
-        numbers.c = numbers.a;
+        numbers.a = add(a, b);
         delete numbers.b;
-        currentShow.textContent = numbers.a;
+        currentShow.textContent = maxLength(numbers.a);
     }
     if (operator == '−') {
-        numbers.a = subtract(+a, +b);
-        numbers.c = numbers.a;
+        numbers.a = subtract(a, b);
         delete numbers.b;
-        currentShow.textContent = numbers.a;
+        currentShow.textContent = maxLength(numbers.a);
     }
     if (operator == '×') {
-        numbers.a = multiply(+a, +b);
-        numbers.c = numbers.a;
+        numbers.a = multiply(a, b);
         delete numbers.b;
-        currentShow.textContent = numbers.a;
+        currentShow.textContent = maxLength(numbers.a);
     }
     if (operator == '÷') {
-        numbers.a = divide(+a, +b);
-        numbers.c = numbers.a;
+        numbers.a = divide(a, b);
         delete numbers.b;
-        currentShow.textContent = numbers.a;
+        currentShow.textContent = maxLength(numbers.a);
     }
-    
 }
 
 
@@ -174,5 +169,14 @@ function equals() {
         operate(numbers.a, numbers.b, numbers.operator);
         numbers.operator = "=";
         delete numbers.a;
+    }
+}
+
+function maxLength(number) {
+    if (number % 1 != 0) {
+        return  Math.round(number * 100) / 100;
+    }
+    else {
+        return number;
     }
 }
