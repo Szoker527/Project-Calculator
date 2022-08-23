@@ -1,60 +1,70 @@
 const btnNum = document.querySelectorAll(".number");
-const textShow = document.querySelector(".text-show")
-const textTop = document.querySelector(".text-save")
+const currentShow = document.getElementById("text-bot")
+const currentTop = document.getElementById("text-top")
 const btnAdd = document.querySelector(".add");
 const btnSub = document.querySelector(".subtract");
 const btnMul = document.querySelector(".multiply");
 const btnDiv = document.querySelector(".divide");
 const btnEqual = document.querySelector(".equal");
 const btnClear = document.querySelector(".clear");
+const btnDot = document.querySelector(".dot");
 const operatorShow = document.querySelector(".operators");
-let lastAction =  true;
-let isEqual = false;
 const numbers = {};
-textShow.textContent = 0;
+let lastAction =  false;
+let isEqual = false;
+currentShow.textContent = 0;
 
 btnNum.forEach(num => num.addEventListener("click", function() {
     if (numbers.operator == "=") {
-        textShow.textContent += this.value;
-        return
+        if (currentShow.textContent.slice(0,1) == 0) {
+            currentShow.textContent = "";
+        }
+        currentShow.textContent += this.value;
+        lastAction = false;
+        return;
     }
-    if (!numbers.operator && textShow.textContent == 0) {
-        textShow.textContent  = "";
-        lastAction = true;
+    if (lastAction === true) {
+        currentShow.textContent = "";
+        lastAction = false;
     }
-    if (lastAction === false) {
-        textShow.textContent  = "";
-        lastAction = true;
+    if (currentShow.textContent.indexOf('.') !== -1) {
+        currentShow.textContent += this.value;
+        return;
     }
-    else if(isEqual === true) {
-        textShow.textContent  = "";
+    if (currentShow.textContent.slice(0,1) == 0) {
+        currentShow.textContent = "";
     }
-    textShow.textContent += this.value;
+    currentShow.textContent += this.value;
 }))
 
 window.addEventListener("keydown", function(e) {
-    const btnInput =  document.querySelector(`input[data-key="${e.key}"]`)
+    const btnInput =  document.querySelector(`button[data-key="${e.key}"]`)
     if (!btnInput) {
         return
     }
     if (numbers.operator == "=") {
-        textShow.textContent += btnInput.value;
+        currentShow.textContent += btnInput.value;
         return
     }
-    if (!numbers.operator && textShow.textContent == 0) {
-        textShow.textContent  = "";
-        lastAction = true;
+    if (!numbers.operator && currentShow.textContent == 0) {
+        currentShow.textContent  = "";
+        lastAction = false;
     }
-    if (lastAction === false) {
-        textShow.textContent  = "";
-        lastAction = true;
+    if (lastAction === true) {
+        currentShow.textContent  = "";
+        lastAction = false;
     }
-    else if(isEqual === true) {
-        textShow.textContent  = "";
-    }
-    textShow.textContent += btnInput.value;
+    currentShow.textContent += btnInput.value;
+    console.log(typeof currentShow.textContent)
 })
 
+btnDot.addEventListener("click", () => {
+    if (currentShow.textContent.indexOf('.') !== -1) {
+        return
+      } else {
+        currentShow.textContent  += ".";
+    }
+})
 btnAdd.addEventListener("click", operatorsWork);
 btnSub.addEventListener("click", operatorsWork);
 btnMul.addEventListener("click", operatorsWork);
@@ -65,8 +75,9 @@ btnClear.addEventListener("click", function() {
     delete numbers.a 
     delete numbers.b
     delete numbers.operator
-    textShow.textContent = 0;
-    textTop.textContent = "";
+    lastAction = false
+    currentShow.textContent = 0;
+    currentTop.textContent = "";
 })
 
 
@@ -88,72 +99,72 @@ function divide(a, b) {
 
 function operate(a, b, operator) {
     if (b == 0) {
+        delete numbers.b;
+        currentShow.textContent = numbers.a;
         return alert("ERROR!")
     }
     if (operator == '+') {
         numbers.a = add(+a,+b);
+        numbers.c = numbers.a;
         delete numbers.b;
-        lastAction = false;
-        textShow.textContent = numbers.a;
-        return numbers.a;
+        currentShow.textContent = numbers.a;
     }
-    if (operator == '-') {
+    if (operator == '−') {
         numbers.a = subtract(+a, +b);
+        numbers.c = numbers.a;
         delete numbers.b;
-        lastAction = false;
-        textShow.textContent = numbers.a;
-        return numbers.a;
+        currentShow.textContent = numbers.a;
     }
     if (operator == '×') {
         numbers.a = multiply(+a, +b);
+        numbers.c = numbers.a;
         delete numbers.b;
-        lastAction = false;
-        textShow.textContent = numbers.a;
-        return numbers.a;
+        currentShow.textContent = numbers.a;
     }
     if (operator == '÷') {
         numbers.a = divide(+a, +b);
+        numbers.c = numbers.a;
         delete numbers.b;
-        lastAction = false;
-        textShow.textContent = numbers.a;
-        return numbers.a;
+        currentShow.textContent = numbers.a;
     }
     
 }
+
 
 function operatorsWork(e) {
-    if (lastAction === false && !(numbers.operator == "=")){
+     if (lastAction === true) {
         numbers.operator = e.target.value;
-        textTop.textContent = numbers.a + " " + numbers.operator;
+        currentTop.textContent = numbers.a + " " + e.target.value;
         return
     }
-    lastAction = false;
-    
+    lastAction =  true;
     if(!numbers.a) {
-        numbers.operator = e.target.value;
-        numbers.a = +textShow.textContent;
-        textTop.textContent = numbers.a + " " + numbers.operator;
+        numbers.a = +currentShow.textContent;
+        currentTop.textContent = numbers.a + " " + e.target.value;
     }
     else if(!numbers.b) {
-        numbers.b = +textShow.textContent;
+        numbers.b = +currentShow.textContent;
         operate(numbers.a, numbers.b, numbers.operator);
-        numbers.operator = e.target.value;
-        textTop.textContent = numbers.a + " " + numbers.operator;
+        currentTop.textContent = numbers.a + " " + e.target.value;
     }
+    numbers.operator = e.target.value;
 
 }
 
+
 function equals(e) {
-    if (numbers.operator == "=" || lastAction === false) {
-        return
+    if (lastAction === true || numbers.operator == "=") {
+        return;
     }
+    if(!numbers.a) {
+        return;
+    }
+    lastAction =  false;
     if(!numbers.b) {
-        numbers.b = +textShow.textContent;
-        textTop.textContent = numbers.a + " " + numbers.operator + " " + numbers.b + " =";
-        lastAction = false;
-    }
+        numbers.b = +currentShow.textContent;
+        currentTop.textContent = numbers.a + " " + numbers.operator + " " + numbers.b + " =";
         operate(numbers.a, numbers.b, numbers.operator);
+        numbers.operator = "=";
         delete numbers.a;
-        numbers.operator = e.target.value;
-        lastAction = false;
+    }
 }
