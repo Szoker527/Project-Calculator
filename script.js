@@ -8,11 +8,11 @@ const btnDiv = document.querySelector(".divide");
 const btnEqual = document.querySelector(".equal");
 const btnClear = document.querySelector(".clear");
 const btnDot = document.querySelector(".dot");
-const operatorShow = document.querySelector(".operators");
+const btnDelete = document.querySelector(".delete")
 const numbers = {};
 let lastAction =  false;
 let isEqual = false;
-currentShow.textContent = 0;
+currentShow.textContent = "0";
 
 btnNum.forEach(num => num.addEventListener("click", function() {
     if (numbers.operator == "=") {
@@ -65,6 +65,15 @@ btnDot.addEventListener("click", () => {
         currentShow.textContent  += ".";
     }
 })
+
+btnDelete.addEventListener("click", () => {
+    if (currentShow.textContent.slice(0, 1) === "0") {
+        return
+    }
+     currentShow.textContent = currentShow.textContent.slice(0, -1); 
+     console.log(currentShow.textContent)
+})
+
 btnAdd.addEventListener("click", operatorsWork);
 btnSub.addEventListener("click", operatorsWork);
 btnMul.addEventListener("click", operatorsWork);
@@ -79,7 +88,6 @@ btnClear.addEventListener("click", function() {
     currentShow.textContent = 0;
     currentTop.textContent = "";
 })
-
 
 function add(a,b) {
     return a + b;
@@ -98,7 +106,7 @@ function divide(a, b) {
 }
 
 function operate(a, b, operator) {
-    if (b == 0) {
+    if (b == 0 && operator == '÷') {
         delete numbers.b;
         currentShow.textContent = numbers.a;
         return alert("ERROR!")
@@ -152,7 +160,7 @@ function operatorsWork(e) {
 }
 
 
-function equals(e) {
+function equals() {
     if (lastAction === true || numbers.operator == "=") {
         return;
     }
