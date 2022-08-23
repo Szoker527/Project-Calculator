@@ -98,6 +98,24 @@ body {
           font-size: 1.5rem;
         }
 
+        button.clear {
+          background-color: #ff7e7e;        
+        }
+
+        button.delete {
+          background-color: #8e8eff; 
+        }
+
+        button.clear:hover {
+          color: #f10000;
+          background-color: black;
+        }
+
+        button.delete:hover {
+          color: #0000eb;
+          background-color: black;
+        }
+
         button {
           width: 80px;
           height: 75px;
