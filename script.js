@@ -164,7 +164,7 @@ function equals() {
     if (lastAction === true || numbers.operator == "=") {
         return;
     }
-    if(!numbers.a) {
+    if(numbers.a === undefined) {
         return;
     }
     lastAction =  false;
